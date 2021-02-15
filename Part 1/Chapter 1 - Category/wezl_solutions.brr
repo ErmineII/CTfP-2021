@@ -1,0 +1,11 @@
+to: f .o. g :do.
+  : a :{ f(g(a)) }
+
+to: x .id :do. x
+
+to: fn .test. a :do: fn(a) = fn(a .id) ;
+
+to: tests(fn a) :do:
+  assert(fn(a) = ( fn .o. id .(a)))
+  assert(fn(a) = ( id .o. fn .(a)))
+;

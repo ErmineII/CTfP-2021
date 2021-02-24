@@ -1,0 +1,39 @@
+class: Optional
+     :is: Object
+     :has: valid ~ Bool = false value = false
+     ;
+
+to: a .->just :do{
+  Optional .create .with: valid = true value = a ;
+}
+
+const: nothing := Optional .create ;
+
+to: a .pcomp. b :do{
+  : arg :{
+    if( arg @ valid )then{
+      let: res := a( arg @ value )
+      if( res @ valid )then{
+        b( res @ value )
+      }else{ nothing }
+    }else{ nothing }
+  }
+}
+
+to: n ~ Number .safe-root :do{
+  if( n < 0
+    )then{ nothing
+    }else{ n .sqrt
+    }
+}
+
+to: n ~ Number .safe-reciprocal :do{
+  if( n = 0
+    )then{ nothing
+    }else{ 1 / n
+    }
+}
+
+to: n ~ Number .safe-rec-root :do{
+  ( safe-root .pcomp. safe-reciprocal ) .(n)
+}
